@@ -3,14 +3,14 @@
 #include <SD.h>
 #define SD_ChipSelectPin 10  //using digital pin 10 on arduino uno
 #include <TMRpcm.h>          // Library for audio play from SDcard
-#include <stdio.h> // for random 
-#include <stdlib.h> // for random 
-#include <time.h> // for random
-TMRpcm tmrpcm;  // Object to access library functions
+#include <stdio.h>           // for random
+#include <stdlib.h>          // for random
+#include <time.h>            // for random
+TMRpcm tmrpcm;               // Object to access library functions
 
 File root;
 
-int sensorInput = 4;  // PIR sensor input pin
+int sensorInput = 4;   // PIR sensor input pin
 int sensorReturn = 0;  // Variable to store PIR sensor output
 
 void setup() {
@@ -35,19 +35,22 @@ void setup2() {
   pinMode(A0, OUTPUT);
 }
 
+
 void loop() {
-
-  int r = rand() % 5 + 1; // generate a random number 
-  // check if motion is detected 
+  int r = rand() % 5 + 1;  // generate a random number
+  // check if motion is detected
   if (sensorReturn == HIGH) {
-  String filename = String(r) + ".WAV"; // random number + .WAV extension (all files in folder must be named 1-5) 
-  Serial.print("Playing " + filename + '\n');
-  delay(1000); // delay before playing 
-  tmrpcm.play(filename.c_str()); // play the file 
+    String filename = String(r) + ".WAV";  // random number + .WAV extension (all files in folder must be named 1-5)
 
-  }
-  else {
-    delay(1000); 
+    //delay(1000);  // delay before playing
+    if (!tmrpcm.isPlaying()) {  // built in tmrpcm lib to check if the current audio is still playing
+      Serial.print("Playing " + filename + '\n');
+      tmrpcm.play(filename.c_str());  // play the file
+    }
+
+
+  } else {
+    delay(1000);
     Serial.print("No motion detected \n");
   }
   loop2();
