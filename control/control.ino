@@ -42,7 +42,6 @@ void loop() {
   if (sensorReturn == HIGH) {
     String filename = String(r) + ".WAV";  // random number + .WAV extension (all files in folder must be named 1-5)
 
-    //delay(1000);  // delay before playing
     if (!tmrpcm.isPlaying()) {  // built in tmrpcm lib to check if the current audio is still playing
       Serial.print("Playing " + filename + '\n');
       tmrpcm.play(filename.c_str());  // play the file
