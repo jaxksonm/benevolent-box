@@ -40,9 +40,9 @@ void loop() {
   int r = rand() % 5 + 1;  // generate a random number
   // check if motion is detected
   if (sensorReturn == HIGH) {
-    String filename = String(r) + ".WAV";  // random number + .WAV extension (all files in folder must be named 1-5)
+    String filename = String(5) + ".WAV";  // random number + .WAV extension (all files in folder must be named 1-5)
 
-    if (!tmrpcm.isPlaying()) {  // built in tmrpcm lib to check if the current audio is still playing
+    while (!tmrpcm.isPlaying()) {  // built in tmrpcm lib to check if the current audio is still playing
       Serial.print("Playing " + filename + '\n');
       tmrpcm.play(filename.c_str());  // play the file
     }
